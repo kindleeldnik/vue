@@ -44,7 +44,8 @@ export default {
         message(newVal){
             this.cancelRequest();
             var that = this;
-            this.axios.get('/api/searchList?cityId=10&kw=' + newVal, {
+            var cityId = this.$store.state.city.id;
+            this.axios.get('/api/searchList?cityId='+ cityId +'&kw=' + newVal, {
                 cancelToken: new this.axios.CancelToken(function executor(c) {
                     that.source = c;
                 })
@@ -56,9 +57,9 @@ export default {
                 }               
             }).catch((err) => {
                 if(this.axios.isCancel(err)) {
-                    console.log('Request canceled', err.message);
+                    //console.log('Request canceled', err.message);
                 }else {
-                    console.log(err);
+                    //console.log(err);
                 }
             })
         }
